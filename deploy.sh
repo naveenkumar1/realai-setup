@@ -141,7 +141,7 @@ else
   FUNCTION_URL=$(aws lambda create-function-url-config \
     --function-name "$LAMBDA_FUNCTION" \
     --auth-type AWS_IAM \
-    --cors '{"AllowOrigins":["*"],"AllowMethods":["POST","GET"],"AllowHeaders":["*","authorization","x-amz-security-token","x-amz-date"]}' \
+    --cors '{"AllowOrigins":["*"],"AllowMethods":["POST","GET"],"AllowHeaders":["*"]}' \
     --region "$AWS_REGION" \
     --query FunctionUrl --output text)
   echo "  ✓ Function URL created (IAM auth — not public)"
