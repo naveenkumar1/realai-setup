@@ -173,7 +173,7 @@ class NarrativeGenerator:
     def __init__(self, config: Dict[str, Any] = None):
         self.config = config or {}
         self.bedrock_client = None
-        self.model_id = "anthropic.claude-3-sonnet-20240229-v1:0"
+        self.model_id = "us.anthropic.claude-sonnet-4-5-20250929-v1:0"
         self.use_bedrock = False
 
         self._init_bedrock()
@@ -197,7 +197,7 @@ class NarrativeGenerator:
             if model_override:
                 self.model_id = model_override
             else:
-                self.model_id = "anthropic.claude-3-sonnet-20240229-v1:0"
+                self.model_id = "us.anthropic.claude-sonnet-4-5-20250929-v1:0"
 
             # Quick connectivity test — list models would require bedrock (not bedrock-runtime)
             # Just mark as ready; actual failure will be caught in _call_bedrock

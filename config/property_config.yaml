@@ -195,6 +195,6 @@ concessions_detail:
 bedrock:
   profile: ""          # Leave blank to use AWS_PROFILE env var, or "default"
   region: "us-east-1"
-  model_id: "anthropic.claude-opus-4-20250514"
+  model_id: "us.anthropic.claude-sonnet-4-5-20250929-v1:0"
   max_tokens: 600
   fallback_to_template: true  # If Bedrock unavailable, use template narratives
