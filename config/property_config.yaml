@@ -1,25 +1,17 @@
 # ─────────────────────────────────────────────────────────────────────────────
-# Property Configuration
-# Update this file for each property / reporting period.
+# property_config.yaml — STATIC configuration only.
+#
+# All property data (name, period, dates, financials, occupancy) is extracted
+# automatically from the uploaded PDFs. Only configure things here that cannot
+# come from the PDFs.
 # ─────────────────────────────────────────────────────────────────────────────
 
+# ── Branding ──────────────────────────────────────────────────────────────────
 company:
   name: "GW2R Asset Management, LLC"
   location: "Frisco, Texas, USA"
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Report period — override defaults extracted from PDFs if needed
-# ─────────────────────────────────────────────────────────────────────────────
-report:
-  # Leave blank to use values extracted from the rent-roll PDF
-  property_name: ""
-  period_start: ""
-  period_end: ""
-  report_date: ""
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Signature block
-# ─────────────────────────────────────────────────────────────────────────────
+# ── Signature block ───────────────────────────────────────────────────────────
 signatures:
   - role: "Prepared by / Asset Manager"
     name: "Bernadette Berania"
@@ -31,16 +23,7 @@ signatures:
     name: "Sridhar Sannidhi"
     company: "GW2R LLC"
 
-# ─────────────────────────────────────────────────────────────────────────────
-# A.1 — Occupancy model unit monthly loss (used in narrative)
-# ─────────────────────────────────────────────────────────────────────────────
-occupancy:
-  model_unit_monthly_loss: 890   # $ per month
-
-# ─────────────────────────────────────────────────────────────────────────────
-# A.3 — Rental Comparison  (market survey data — update monthly)
-# Set enabled: false to flag this section as data-not-available
-# ─────────────────────────────────────────────────────────────────────────────
+# ── A.3 Rental Comparison — manual market survey, update monthly ──────────────
 rental_comparison:
   enabled: true
   data_source: "Manual market survey — update monthly"
@@ -102,99 +85,45 @@ rental_comparison:
           sq_ft: 854
           rent: 1042.00
 
-# ─────────────────────────────────────────────────────────────────────────────
-# A.4 — Lease Analysis  (from lease management system — update monthly)
-# ─────────────────────────────────────────────────────────────────────────────
+# ── A.4 Lease Analysis — from lease management system ────────────────────────
 lease_analysis:
-  enabled: false   # Set true when lease export data is available
+  enabled: false
   data_source: "Lease management system export"
-  # When enabled, provide month-by-month data below
-  months:
-    - label: "December"
-      expiration: 10
-      renewal: 10
-      pipeline_30: 6
-      pipeline_60: 13
-    - label: "November"
-      expiration: 6
-      renewal: 6
-      pipeline_30: 12
-      pipeline_60: 6
-    - label: "October"
-      expiration: 8
-      renewal: 8
-      pipeline_30: 10
-      pipeline_60: 9
+  months: []
 
-# ─────────────────────────────────────────────────────────────────────────────
-# A.5 — Work Order Analysis  (from maintenance system — update monthly)
-# ─────────────────────────────────────────────────────────────────────────────
+# ── A.5 Work Orders — from maintenance system ────────────────────────────────
 work_orders:
-  enabled: false   # Set true when maintenance data is available
+  enabled: false
   data_source: "Property maintenance management system"
-  months:
-    - label: "December"
-      completed: 60
-      pending: 5
-    - label: "November"
-      completed: 34
-      pending: 17
-    - label: "October"
-      completed: 45
-      pending: 8
+  months: []
 
-# ─────────────────────────────────────────────────────────────────────────────
-# A.6 — Prospect Analysis  (from CRM/leasing software — update monthly)
-# ─────────────────────────────────────────────────────────────────────────────
+# ── A.6 Prospect Analysis — from CRM / leasing software ──────────────────────
 prospect_analysis:
-  enabled: false   # Set true when CRM data is available
+  enabled: false
   data_source: "CRM / leasing software export"
-  new_contacts: 0
-  walkins: 0
-  primary_lead_source: ""
-  primary_lead_source_pct: 0
-  applications_submitted: 0
-  leases_signed: 0
-  top_unit_interest: ""
 
-# ─────────────────────────────────────────────────────────────────────────────
-# B — CAPEX  (from CAPEX tracking spreadsheet — update monthly)
-# ─────────────────────────────────────────────────────────────────────────────
+# ── B CAPEX — from CAPEX tracking spreadsheet ────────────────────────────────
 capex:
-  enabled: false   # Set true when CAPEX data is available
+  enabled: false
   data_source: "CAPEX tracking spreadsheet"
-  interior:
-    - description: ""
-      amount: 0.0
-  exterior:
-    - description: ""
-      amount: 0.0
+  interior: []
+  exterior: []
 
-# ─────────────────────────────────────────────────────────────────────────────
-# C.2 — Budget vs Actual  (from budget file — update monthly)
-# ─────────────────────────────────────────────────────────────────────────────
+# ── C.2 Budget vs Actual — from budget file ──────────────────────────────────
 budget:
-  enabled: false   # Set true when budget file is available
+  enabled: false
   data_source: "Property budget spreadsheet / Yardi budget export"
 
-# ─────────────────────────────────────────────────────────────────────────────
-# E.2 — Concession Detail  (from GL or rent roll concession ledger)
-# ─────────────────────────────────────────────────────────────────────────────
+# ── E.2 Concession Detail — from GL ──────────────────────────────────────────
 concessions_detail:
-  enabled: false   # Set true when GL concession detail is available
+  enabled: false
   data_source: "General ledger concession line items"
-  items:
-    - unit: ""
-      tenant: ""
-      description: ""
-      amount: 0.0
+  items: []
 
-# ─────────────────────────────────────────────────────────────────────────────
-# AWS / Bedrock settings for LLM narrative generation
-# ─────────────────────────────────────────────────────────────────────────────
+# ── AWS Bedrock — LLM narrative generation ───────────────────────────────────
 bedrock:
-  profile: ""          # Leave blank to use AWS_PROFILE env var, or "default"
+  profile: ""          # Leave blank to use AWS_PROFILE env var
   region: "us-east-1"
   model_id: "us.anthropic.claude-sonnet-4-5-20250929-v1:0"
   max_tokens: 600
-  fallback_to_template: true  # If Bedrock unavailable, use template narratives
+  fallback_to_template: true
