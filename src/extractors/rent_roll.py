@@ -1,6 +1,7 @@
 """Rent Roll PDF extractor."""
 import re
 from decimal import Decimal
+from datetime import date
 from .models import UnitRecord, RentRollSummary
 
 
@@ -33,7 +34,7 @@ class RentRollExtractor:
         property_name = "Verandas at Bear Creek"
         period_start  = "12/01/25"
         period_end    = "12/31/25"
-        report_date   = "01/14/26"
+        report_date   = date.today().strftime("%m/%d/%y")
 
         for line in lines:
             if 'Property:' in line:
