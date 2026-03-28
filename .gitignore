@@ -1,0 +1,15 @@
+# Confidential data files
+data/
+
+# Generated output
+output/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+
+# Virtual environments
+.venv/
+venv/

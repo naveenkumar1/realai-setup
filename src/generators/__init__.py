@@ -1,3 +1,4 @@
-from .report_generator import ReportGenerator
+from .narrative import NarrativeGenerator
+from .report import FullReportGenerator
 
-__all__ = ['ReportGenerator']
+__all__ = ['NarrativeGenerator', 'FullReportGenerator']
