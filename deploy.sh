@@ -138,21 +138,13 @@ if [ -n "$EXISTING_URL" ]; then
   FUNCTION_URL="$EXISTING_URL"
   echo "  ✓ Function URL already configured"
 else
-  aws lambda add-permission \
-    --function-name "$LAMBDA_FUNCTION" \
-    --statement-id FunctionURLAllowPublicAccess \
-    --action lambda:InvokeFunctionUrl \
-    --principal "*" \
-    --function-url-auth-type NONE \
-    --region "$AWS_REGION" > /dev/null 2>&1 || true
-
   FUNCTION_URL=$(aws lambda create-function-url-config \
     --function-name "$LAMBDA_FUNCTION" \
-    --auth-type NONE \
-    --cors '{"AllowOrigins":["*"],"AllowMethods":["POST","GET"],"AllowHeaders":["*"]}' \
+    --auth-type AWS_IAM \
+    --cors '{"AllowOrigins":["*"],"AllowMethods":["POST","GET"],"AllowHeaders":["*","authorization","x-amz-security-token","x-amz-date"]}' \
     --region "$AWS_REGION" \
     --query FunctionUrl --output text)
-  echo "  ✓ Function URL created"
+  echo "  ✓ Function URL created (IAM auth — not public)"
 fi
 
 echo ""
@@ -163,8 +155,9 @@ echo ""
 echo " Endpoint : ${FUNCTION_URL}"
 echo " Health   : ${FUNCTION_URL}health"
 echo ""
-echo " Generate a report:"
-echo "   curl -X POST ${FUNCTION_URL}generate-report \\"
+echo " Generate a report (requires AWS SigV4 — use awscurl or boto3):"
+echo "   awscurl --service lambda --region ${AWS_REGION} \\"
+echo "     -X POST ${FUNCTION_URL}generate-report \\"
 echo '     -F "rent_roll=@data/rent_roll.pdf" \'
 echo '     -F "financials=@data/t12.pdf"'
 echo ""
